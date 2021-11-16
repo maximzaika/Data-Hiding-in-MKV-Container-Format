@@ -1,0 +1,22 @@
+#!/bin/bash
+# run from terminal ./find
+
+echo "|--------------------------------------------------------------------|"
+echo "|   This script will allow you to find hidden data inside selected   |"
+echo "|   .MKV container. Please follow the instructions below to launch   |"
+echo "|              data_verification process successfully.               |"
+echo "|--------------------------------------------------------------------|"
+read -p "  Enter the name of your .MKV container and press [ENTER]: " filename
+
+if [ "${filename: -4}" == ".mkv" ]; then
+	cat ${filename} | python parse_and_convert_mkv2xml.py > .tmp.xml && 
+	python find_data.py .tmp.xml && 
+	rm .tmp.xml
+else
+	echo "|--------------------------------------------------------------------|"
+	echo "|  The file that you are trying to select is not .MKV container.     |"
+	echo "|           Relaunch the script with .MKV extension.                 |"
+	echo "|--------------------------------------------------------------------|"
+fi
+
+
